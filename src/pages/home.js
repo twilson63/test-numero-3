@@ -9,7 +9,7 @@ import {
 } from 'jrs-react-components'
 import LinkButton from '../components/link-button'
 import { connect } from 'react-redux'
-import { map, sortBy, compose, prop, filter } from 'ramda'
+import { map, sortBy, compose, prop, filter, indexOf } from 'ramda'
 import {
   SEARCH_TEXT,
   SEARCH_RESULTS,
@@ -64,7 +64,11 @@ const Home = function(props) {
               title="Add New Favorite"
               link={<LinkButton to="/new">Add</LinkButton>}
             />
-            {compose(map(li), sortedAlbums())(props.favorites)}
+            {compose(
+              map(li),
+              sortedAlbums(),
+              filter(album => indexOf(props.searchAlbum, album.name) > -1)
+            )(props.favorites)}
           </List>
         </div>
       </main>

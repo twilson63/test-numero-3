@@ -38,7 +38,9 @@ class Show extends React.Component {
               Play Album
             </a>
             <Link to="/"><BigButton>Return</BigButton></Link>
-            <Link to="/edit"><BigButton>Edit Rank</BigButton></Link>
+            <Link to={`/edit/${props.favorite.id}`}>
+              <BigButton>Edit Rank</BigButton>
+            </Link>
             <BigButton onClick={props.handleClick(props.history)}>
               Delete
             </BigButton>
@@ -66,7 +68,7 @@ const removeAlbum = history => (dispatch, getState) => {
   })
     .then(res => res.json())
     .then(fave => {
-      dispatch({ type: DELETE_FAVE, payload: fave })
+      dispatch({ type: DELETE_FAVE, payload: favorite })
     })
   dispatch({ type: CLEAR_FAVE })
   history.push('/')
